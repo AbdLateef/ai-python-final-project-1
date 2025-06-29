@@ -9,7 +9,6 @@ Aplikasi ini memprediksi kemungkinan pelanggan melakukan churn (berhenti) berdas
 - 📂 Upload file CSV data pelanggan
 - 🧠 Mode **Training**: Melatih model dari data historis (dengan kolom `churn`)
 - 🔮 Mode **Prediksi**: Memprediksi kemungkinan churn dari data pelanggan baru (tanpa kolom `churn`)
-- 💾 Menyimpan model hasil training ke file `.pkl`
 - 📊 Tabel prediksi dengan highlight risiko tinggi
 - 📈 Histogram distribusi probabilitas churn
 - 🧠 Analisis **Feature Importance** (pentingnya masing-masing fitur)

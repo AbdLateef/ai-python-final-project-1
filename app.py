@@ -146,7 +146,6 @@ if uploaded_file is not None:
             st.pyplot(fig)
 
         with col2:
-
             st.markdown("### 🧠 Kontribusi Fitur")
             importances = pd.Series(model.feature_importances_, index=available_features)
             importances = importances.sort_values(ascending=True)
@@ -155,13 +154,18 @@ if uploaded_file is not None:
             ax2.set_title("Kontribusi Fitur terhadap Prediksi Churn")
             st.pyplot(fig2)
 
-            st.markdown("### 📌 Ringkasan Prediksi")
-
             total_customers = len(df)
             rata_rata_churn = df['churn_probability'].mean()
             high_risk = df[df['churn_probability'] >= 0.8]
             medium_risk = df[(df['churn_probability'] >= 0.6) & (df['churn_probability'] < 0.8)]
             low_risk = df[df['churn_probability'] < 0.4]
+
+        with st.container():
+            st.markdown("""
+                <div style='text-align: left;'>
+                    <h3>📌 Ringkasan Prediksi</h3>
+                </div>
+            """, unsafe_allow_html=True)
 
             st.markdown(f"""
             - **Total pelanggan dianalisis**: {total_customers}
@@ -170,21 +174,23 @@ if uploaded_file is not None:
             - **Pelanggan risiko sedang (0.6 – 0.79)**: {len(medium_risk)}
             - **Pelanggan risiko rendah (< 0.4)**: {len(low_risk)}
             """)
-
-            # Contoh pelanggan berisiko tinggi
+            
             if len(high_risk) > 0:
                 top_risk_names = high_risk['customer_name'].head(3).tolist() if 'customer_name' in high_risk.columns else high_risk['customer_id'].head(3).tolist()
                 st.markdown(f"""
                 ⚠️ **Perhatian!** Terdapat **{len(high_risk)} pelanggan** dengan risiko churn sangat tinggi.
-                
+
                 Beberapa pelanggan yang perlu segera diintervensi:
                 - {', '.join(map(str, top_risk_names))}
                 """)
             else:
                 st.success("✅ Tidak ada pelanggan dengan risiko churn sangat tinggi berdasarkan data yang diunggah.")
 
-            # Rekomendasi otomatis
-            st.markdown("### 💡 Rekomendasi Tindakan")
+            st.markdown("""
+                <div style='text-align: left;'>
+                    <h3>💡 Rekomendasi Tindakan</h3>
+                </div>
+            """, unsafe_allow_html=True)
 
             if len(high_risk) > 0:
                 st.markdown("""
@@ -200,6 +206,7 @@ if uploaded_file is not None:
                 st.markdown("""
                 - ✅ Mayoritas pelanggan berada dalam kondisi aman. Fokus pada **peningkatan layanan & mempertahankan kepuasan**.
                 """)
+
 
 else:
     st.info("⬆️ Upload file CSV terlebih dahulu untuk memulai.")
